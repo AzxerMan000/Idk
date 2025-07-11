@@ -59,7 +59,6 @@ function GuiLibrary:createKeyUI()
     input.Font = Enum.Font.SourceSans
     Instance.new("UICorner", input).CornerRadius = UDim.new(0, 8)
 
-    -- Verify Button
     local verify = Instance.new("TextButton", keyFrame)
     verify.Text = "✅ Verify"
     verify.Size = UDim2.new(0.4, 0, 0, 35)
@@ -70,7 +69,6 @@ function GuiLibrary:createKeyUI()
     verify.TextSize = 18
     Instance.new("UICorner", verify).CornerRadius = UDim.new(0, 6)
 
-    -- Get Key Button
     local getKey = Instance.new("TextButton", keyFrame)
     getKey.Text = "🔗 Get Key"
     getKey.Size = UDim2.new(0.5, 0, 0, 35)
@@ -81,7 +79,7 @@ function GuiLibrary:createKeyUI()
     getKey.TextSize = 18
     Instance.new("UICorner", getKey).CornerRadius = UDim.new(0, 6)
 
-    -- Events
+    -- Event connections
     verify.MouseButton1Click:Connect(function()
         if input.Text == self.correctKey then
             keyFrame:Destroy()
@@ -97,6 +95,8 @@ function GuiLibrary:createKeyUI()
         input.PlaceholderText = "🔗 Link copied!"
     end)
 end
+
+    
 
 function GuiLibrary:createWindow(title, iconId)
     if self.useKeySystem and not self.guiEnabled then return end
