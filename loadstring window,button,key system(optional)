@@ -1,0 +1,13 @@
+local GuiLibrary = loadstring(game:HttpGet(""))()
+
+local gui = GuiLibrary.new({
+    useKeySystem = true,
+    correctKey = "MySecretKey",
+    keyLink = "https://example.com/getkey"
+})
+
+local window = gui:createWindow("Test GUI", "rbxassetid://6031094678")
+local tab = window:createTab("Main")
+tab:createButton("Hello", function()
+    print("Verified!")
+end)
