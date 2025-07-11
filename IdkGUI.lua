@@ -38,6 +38,8 @@ function GuiLibrary:createKeyUI()
     keyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     keyFrame.Name = "KeyFrame"
     keyFrame.Visible = true
+    keyFrame.Active = true
+keyFrame.Draggable = true
 
     Instance.new("UICorner", keyFrame).CornerRadius = UDim.new(0, 10)
 
