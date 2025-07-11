@@ -127,6 +127,10 @@ function GuiLibrary:createWindow(title, iconId)
     iconButton.Image = iconId or "rbxassetid://6031091002"
     iconButton.Visible = false
     Instance.new("UICorner", iconButton).CornerRadius = UDim.new(0, 10)
+    TweenService:Create(mainFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+        Position = UDim2.new(0.5, -250, 0.5, -175)
+    }):Play()
+end)
 
 local mainFrame = Instance.new("Frame", screenGui)
 mainFrame.Size = UDim2.new(0, 500, 0, 350)
