@@ -77,6 +77,7 @@ function GuiLibrary.new(config)
     self.scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
     self.scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
     self.scrollFrame.ClipsDescendants = true
+    Instance.new("UICorner", self.scrollFrame).CornerRadius = UDim.new(0, 8)
 
     self.layout = Instance.new("UIListLayout", self.scrollFrame)
     self.layout.Padding = UDim.new(0, 6)
