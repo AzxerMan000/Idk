@@ -1,5 +1,5 @@
 -- GuiLibrary.lua
-
+local TweenService = game:GetService("TweenService")
 local GuiLibrary = {}
 GuiLibrary.__index = GuiLibrary
 
@@ -38,6 +38,20 @@ function GuiLibrary:createKeyUI()
     keyFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
     keyFrame.Name = "KeyFrame"
     keyFrame.Visible = true
+    -- Start transparent for fade-in
+keyFrame.BackgroundTransparency = 1
+title.TextTransparency = 1
+input.TextTransparency = 1
+verify.TextTransparency = 1
+getKey.TextTransparency = 1
+
+-- Tween fade-in
+TweenService:Create(keyFrame, TweenInfo.new(0.4), {BackgroundTransparency = 0}):Play()
+TweenService:Create(title, TweenInfo.new(0.4), {TextTransparency = 0}):Play()
+TweenService:Create(input, TweenInfo.new(0.4), {TextTransparency = 0}):Play()
+TweenService:Create(verify, TweenInfo.new(0.4), {TextTransparency = 0}):Play()
+TweenService:Create(getKey, TweenInfo.new(0.4), {TextTransparency = 0}):Play()
+    
     keyFrame.Active = true
 keyFrame.Draggable = true
 
@@ -114,14 +128,20 @@ function GuiLibrary:createWindow(title, iconId)
     iconButton.Visible = false
     Instance.new("UICorner", iconButton).CornerRadius = UDim.new(0, 10)
 
-    local mainFrame = Instance.new("Frame", screenGui)
-    mainFrame.Size = UDim2.new(0, 500, 0, 350)
-    mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
-    mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
-    mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
-    mainFrame.Draggable = true
-    mainFrame.Active = true
-    Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
+local mainFrame = Instance.new("Frame", screenGui)
+mainFrame.Size = UDim2.new(0, 500, 0, 350)
+mainFrame.Position = UDim2.new(0.5, -250, 0.5, -500) -- start offscreen
+mainFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
+mainFrame.Draggable = true
+mainFrame.Active = true
+mainFrame.Visible = true
+Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 10)
+
+-- Animate it sliding in
+TweenService:Create(mainFrame, TweenInfo.new(0.5, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
+    Position = UDim2.new(0.5, -250, 0.5, -175)
+}):Play()
 
     local topBar = Instance.new("Frame", mainFrame)
     topBar.Size = UDim2.new(1, 0, 0, 30)
@@ -167,9 +187,19 @@ function GuiLibrary:createWindow(title, iconId)
     Instance.new("UICorner", contentFrame).CornerRadius = UDim.new(0, 10)
 
     closeButton.MouseButton1Click:Connect(function()
-        mainFrame.Visible = false
-        iconButton.Visible = true
-    end)
+    -- Slide the window down off-screen
+    local tween = TweenService:Create(mainFrame, TweenInfo.new(0.4, Enum.EasingStyle.Quart, Enum.EasingDirection.In), {
+        Position = UDim2.new(0.5, -250, 0.5, 500)  -- offscreen below
+    })
+    tween:Play()
+    tween.Completed:Wait()
+
+    mainFrame.Visible = false
+    iconButton.Visible = true
+
+    -- Reset position for next open
+    mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
+end)
 
     minimizeButton.MouseButton1Click:Connect(function()
         contentFrame.Visible = not contentFrame.Visible
