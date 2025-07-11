@@ -1,4 +1,4 @@
-local GuiLibrary = loadstring(game:HttpGet(""))()
+local GuiLibrary = loadstring(game:HttpGet("https://raw.githubusercontent.com/AzxerMan000/Idk/refs/heads/main/IdkGUI"))()
 
 local gui = GuiLibrary.new({
     useKeySystem = true,
