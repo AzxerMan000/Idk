@@ -11,6 +11,7 @@ function GuiLibrary.new(config)
     self.tabs          = {}
     self.currentTab    = nil
     self.player        = game.Players.LocalPlayer
+    
 
     -- Main screen
     self.screenGui = Instance.new("ScreenGui", self.player:WaitForChild("PlayerGui"))
@@ -85,11 +86,42 @@ function GuiLibrary.new(config)
                 self.keyBox.PlaceholderText = "Wrong Key!"
             end
         end)
-    end
+-- ❌ X Button (Destroy GUI)
+self.xButton = Instance.new("TextButton", self.mainFrame)
+self.xButton.Size = UDim2.new(0, 30, 0, 30)
+self.xButton.Position = UDim2.new(1, -35, 0, 5)
+self.xButton.Text = "X"
+self.xButton.TextSize = 18
+self.xButton.Font = self.font
+self.xButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+self.xButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+Instance.new("UICorner", self.xButton).CornerRadius = UDim.new(1, 0)
 
-    return self
-end
+self.xButton.MouseButton1Click:Connect(function()
+    self.screenGui:Destroy()
+end)
 
+-- 🔁 Toggle Button (Show/Hide GUI)
+self.toggleButton = Instance.new("TextButton", self.screenGui)
+self.toggleButton.Size = UDim2.new(0, 50, 0, 50)
+self.toggleButton.Position = UDim2.new(0, 10, 0.5, -25)
+self.toggleButton.Text = "+"
+self.toggleButton.TextSize = 24
+self.toggleButton.Font = self.font
+self.toggleButton.BackgroundColor3 = Color3.fromRGB(0, 170, 127)
+self.toggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+self.toggleButton.Active = true
+self.toggleButton.Draggable = true
+Instance.new("UICorner", self.toggleButton).CornerRadius = UDim.new(1, 0)
+        
+
+self.toggleButton.MouseButton1Click:Connect(function()
+    self.mainFrame.Visible = not self.mainFrame.Visible
+end)
+
+        return self
+
+        
 function GuiLibrary:AddTab(name)
     -- reuse if exists
     if self.tabs[name] then
