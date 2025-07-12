@@ -7,8 +7,7 @@ function GuiLibrary.new(config)
 	self.useKeySystem = config and config.useKeySystem or false
 	self.correctKey = config and config.correctKey or "MySecretKey123"
 	self.titleText = config and config.title or "Gui Library"
-	self.font = config and config.font or Enum.Font.Arial -- ✅ Custom font option
-
+	self.font = config and config.font or Enum.Font.Arial
 	self.tabs = {}
 	self.currentTab = nil
 	self.player = game.Players.LocalPlayer
@@ -17,7 +16,7 @@ function GuiLibrary.new(config)
 	self.screenGui.Name = "GuiLibraryScreenGui"
 	self.screenGui.ResetOnSpawn = false
 
-	-- Key Frame
+	-- Key System Frame
 	self.keyFrame = Instance.new("Frame", self.screenGui)
 	self.keyFrame.Size = UDim2.new(0, 250, 0, 150)
 	self.keyFrame.Position = UDim2.new(0.5, -125, 0.5, -75)
@@ -31,7 +30,7 @@ function GuiLibrary.new(config)
 	keyTitle.BackgroundTransparency = 1
 	keyTitle.Text = "Enter Key to Unlock GUI"
 	keyTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-	keyTitle.Font = self.font -- ✅
+	keyTitle.Font = self.font
 	keyTitle.TextSize = 18
 
 	self.keyBox = Instance.new("TextBox", self.keyFrame)
@@ -39,7 +38,7 @@ function GuiLibrary.new(config)
 	self.keyBox.Position = UDim2.new(0, 20, 0, 50)
 	self.keyBox.PlaceholderText = "Enter Key..."
 	self.keyBox.Text = ""
-	self.keyBox.Font = self.font -- ✅
+	self.keyBox.Font = self.font
 	self.keyBox.TextSize = 16
 	self.keyBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
 	self.keyBox.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -49,16 +48,16 @@ function GuiLibrary.new(config)
 	self.submitButton.Size = UDim2.new(1, -40, 0, 30)
 	self.submitButton.Position = UDim2.new(0, 20, 0, 90)
 	self.submitButton.Text = "Submit"
-	self.submitButton.Font = self.font -- ✅
+	self.submitButton.Font = self.font
 	self.submitButton.TextSize = 16
 	self.submitButton.BackgroundColor3 = Color3.fromRGB(0, 170, 127)
 	self.submitButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Instance.new("UICorner", self.submitButton).CornerRadius = UDim.new(0, 6)
 
-	-- Main Frame
+	-- Main GUI
 	self.mainFrame = Instance.new("Frame", self.screenGui)
-	self.mainFrame.Size = UDim2.new(0, 400, 0, 300)
-	self.mainFrame.Position = UDim2.new(0.5, -200, 0.5, -150)
+	self.mainFrame.Size = UDim2.new(0, 500, 0, 350)
+	self.mainFrame.Position = UDim2.new(0.5, -250, 0.5, -175)
 	self.mainFrame.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 	self.mainFrame.Active = true
 	self.mainFrame.Draggable = true
@@ -71,24 +70,24 @@ function GuiLibrary.new(config)
 	titleLabel.BackgroundTransparency = 1
 	titleLabel.Text = self.titleText
 	titleLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-	titleLabel.Font = self.font -- ✅
+	titleLabel.Font = self.font
 	titleLabel.TextSize = 22
 
-	-- Tab Bar
+	-- Vertical Tabs (Left Side)
 	self.tabBar = Instance.new("Frame", self.mainFrame)
-	self.tabBar.Size = UDim2.new(0, 140, 0, 30)
+	self.tabBar.Size = UDim2.new(0, 130, 1, -40)
 	self.tabBar.Position = UDim2.new(0, 0, 0, 40)
-	self.tabBar.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+	self.tabBar.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
 	Instance.new("UICorner", self.tabBar).CornerRadius = UDim.new(0, 8)
 
 	self.tabLayout = Instance.new("UIListLayout", self.tabBar)
 	self.tabLayout.Padding = UDim.new(0, 6)
-	self.tabLayout.FillDirection = Enum.FillDirection.Horizontal
+	self.tabLayout.FillDirection = Enum.FillDirection.Vertical
 	self.tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 
 	self.tabContainer = Instance.new("Frame", self.mainFrame)
-	self.tabContainer.Size = UDim2.new(0, 140, 1, -70)
-	self.tabContainer.Position = UDim2.new(0, 0, 0, 70)
+	self.tabContainer.Size = UDim2.new(1, -140, 1, -40)
+	self.tabContainer.Position = UDim2.new(0, 140, 0, 40)
 	self.tabContainer.BackgroundTransparency = 1
 
 	if self.useKeySystem then
@@ -117,9 +116,9 @@ function GuiLibrary:AddTab(name)
 	end
 
 	local tabButton = Instance.new("TextButton", self.tabBar)
-	tabButton.Size = UDim2.new(0, 60, 1, 0)
+	tabButton.Size = UDim2.new(1, -10, 0, 30)
 	tabButton.Text = name
-	tabButton.Font = self.font -- ✅
+	tabButton.Font = self.font
 	tabButton.TextSize = 14
 	tabButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 	tabButton.BackgroundColor3 = Color3.fromRGB(70, 70, 70)
@@ -127,7 +126,7 @@ function GuiLibrary:AddTab(name)
 
 	local scrollFrame = Instance.new("ScrollingFrame", self.tabContainer)
 	scrollFrame.Size = UDim2.new(1, 0, 1, 0)
-	scrollFrame.BackgroundColor3 = Color3.fromRGB(45, 45, 45)
+	scrollFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 	scrollFrame.ScrollBarThickness = 6
 	scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
 	scrollFrame.AutomaticCanvasSize = Enum.AutomaticSize.Y
@@ -170,7 +169,7 @@ function GuiLibrary:AddButton(text, callback)
 	btn.BackgroundColor3 = Color3.fromRGB(70, 130, 180)
 	btn.TextColor3 = Color3.fromRGB(255, 255, 255)
 	btn.Text = text or "Button"
-	btn.Font = self.font -- ✅
+	btn.Font = self.font
 	btn.TextSize = 16
 	Instance.new("UICorner", btn).CornerRadius = UDim.new(0, 6)
 	btn.Parent = tabData.Frame
