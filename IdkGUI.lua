@@ -86,6 +86,8 @@ function GuiLibrary.new(config)
                 self.keyBox.PlaceholderText = "Wrong Key!"
             end
         end)
+
+    end 
 -- ❌ X Button (Destroy GUI)
 self.xButton = Instance.new("TextButton", self.mainFrame)
 self.xButton.Size = UDim2.new(0, 30, 0, 30)
